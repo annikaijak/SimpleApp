@@ -125,10 +125,11 @@ def check_company_sentiment(company_name):
     if company_name not in overall_scores:
         return f"{company_name} not found in the data."
 
-    sentiment_info = f"Overall sentiment for {company_name}: {overall_scores[company_name]}"
+    sentiment_info = [f"Overall sentiment for {company_name}: {overall_scores[company_name]}"]
+  
     for category, scores in category_scores.items():
         if company_name in scores:
-            sentiment_info += f", {category} sentiment: {scores[company_name]}"
+            sentiment_info.append(f"{category} sentiment: {scores[company_name]}")
     return sentiment_info
 
 # The App    
@@ -163,7 +164,7 @@ with tab3:
 
   if st.button('Predict Overall Aspect-Based Sentiment of Selected Company'):
     result = check_company_sentiment(selected_company)
-    st.write(result)
+    st.write(result[0])
 
 with tab4:
   st.header('Model performance')
