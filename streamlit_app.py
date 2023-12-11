@@ -97,7 +97,7 @@ def categorize_review(text_review):
 st.title('TrustTracker 👌')
 st.markdown('Welcome to TrustTracker! The application where you easily can check the quality, price, service and delivery of your favorite companies.')
 
-tab1,tab2,tab3,tab4,tab5,tab6 = st.tabs(['About', 'Traditional Approach', 'Transformer Approach', 'Model performance', 'Dataset', 'Visualisations'])
+tab1,tab2,tab3,tab4,tab5,tab6 = st.tabs(['About', 'Predict Individual Reviews', 'Predict Overall Company Performance', 'Model performance', 'Dataset', 'Visualisations'])
 
 
 with tab1:
@@ -106,8 +106,8 @@ with tab1:
         
 with tab2:
 
-  st.header('Traditional Approach')
-  st.write('This tab includes Traditional Sentiment Analysis using TF-IDF and SVM.')
+  st.header('Predict Individual Reviews')
+  st.write('This tab includes a traditional Sentiment Analysis for Individual Reviews using TF-IDF and SVM.')
   
   with st.form('my_form'):
     st.subheader('Sentiment Analysis for Individual Reviews')
@@ -130,7 +130,7 @@ with tab2:
 
 
 with tab3:
-  st.header('Transformer Approach')
+  st.header('Predict Overall Company Performance')
   st.write('This tab includes Transformer-Based Sentiment Analysis using RoBERTa and SoftMax.')
       
 
