@@ -109,7 +109,7 @@ def overall_and_category_sentiment(df):
     # Calculate mean sentiment for each category for each company
     category_sentiments = {}
     for category, keywords in categories.items():
-        df_category = df[df['review'].str.contains('|'.join(keywords))]
+        df_category = df[df['review_text'].str.contains('|'.join(keywords))]
         category_sentiments[category] = df_category.groupby('name')['sentiment'].mean()
 
     # Determine overall sentiment and category sentiment
