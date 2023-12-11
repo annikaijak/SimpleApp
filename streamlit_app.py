@@ -102,6 +102,17 @@ def categorize_review(text_review):
 # Creating a sentiment column
 df['sentiment']=np.where(df['rating']>=4,1,0) # 1=positive, 0=negative
 
+def overall_sentiment(data):
+    # Calculate the mean sentiment for each company
+    sentiment_means = df_clean.groupby('company')['sentiment'].mean()
+
+    # Determine overall sentiment based on mean sentiment
+    overall = sentiment_means.apply(lambda x: 'positive' if x >= 0.5 else 'negative')
+    return overall
+
+# Apply the function to your DataFrame
+overall_scores = overall_sentiment(df)
+
 # The App    
 st.title('TrustTracker 👌')
 st.markdown('Welcome to TrustTracker! The application where you easily can check the quality, price, service and delivery of your favorite companies.')
