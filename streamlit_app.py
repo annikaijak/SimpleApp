@@ -102,16 +102,34 @@ def categorize_review(text_review):
 # Creating a sentiment column
 df['sentiment']=np.where(df['rating']>=4,1,0) # 1=positive, 0=negative
 
-def overall_sentiment(data):
+def overall_and_category_sentiment(df):
     # Calculate the mean sentiment for each company
-    sentiment_means = df_clean.groupby('company')['sentiment'].mean()
+    overall_sentiment_means = df.groupby('company')['sentiment'].mean()
 
-    # Determine overall sentiment based on mean sentiment
-    overall = sentiment_means.apply(lambda x: 'positive' if x >= 0.5 else 'negative')
-    return overall
+    # Calculate mean sentiment for each category for each company
+    category_sentiments = {}
+    for category, keywords in categories.items():
+        df_category = df[df['review'].str.contains('|'.join(keywords))]
+        category_sentiments[category] = df_category.groupby('company')['sentiment'].mean()
+
+    # Determine overall sentiment and category sentiment
+    overall = overall_sentiment_means.apply(lambda x: 'positive' if x >= 0.5 else 'negative')
+    category_sentiment_labels = {category: sentiments.apply(lambda x: 'positive' if x >= 0.5 else 'negative') for category, sentiments in category_sentiments.items()}
+
+    return overall, category_sentiment_labels
 
 # Apply the function to your DataFrame
-overall_scores = overall_sentiment(df)
+overall_scores, category_scores = overall_and_category_sentiment(df)
+
+def check_company_sentiment(company_name, overall_scores, category_scores):
+    if company_name not in overall_scores:
+        return f"{company_name} not found in the data."
+
+    sentiment_info = f"Overall sentiment for {company_name}: {overall_scores[company_name]}"
+    for category, scores in category_scores.items():
+        if company_name in scores:
+            sentiment_info += f", {category} sentiment: {scores[company_name]}"
+    return sentiment_info
 
 # The App    
 st.title('TrustTracker 👌')
