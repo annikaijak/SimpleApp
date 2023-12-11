@@ -121,7 +121,7 @@ def overall_and_category_sentiment(df):
 # Apply the function to your DataFrame
 overall_scores, category_scores = overall_and_category_sentiment(df)
 
-def check_company_sentiment(company_name, overall_scores, category_scores):
+def check_company_sentiment(company_name):
     if company_name not in overall_scores:
         return f"{company_name} not found in the data."
 
