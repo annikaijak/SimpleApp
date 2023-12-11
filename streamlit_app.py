@@ -123,14 +123,9 @@ with tab2:
 
 with tab3:
   st.header('Predict Overall Company Performance')
-  st.write('This tab includes Transformer-Based Sentiment Analysis using RoBERTa and SoftMax.')
-
-  with st.form('another_form'):
-    st.subheader('Sentiment Analysis for Companies')
-    company = st.selectbox('Select company:', df['name'].unique())
-    
-    submit_button2 = st.form_submit_button('Submit')    
-
+  st.write('')
+  
+  company = st.selectbox('Select company:', df['name'].unique())
 
 with tab4:
   st.header('Model performance')
