@@ -162,7 +162,7 @@ with tab3:
   selected_company = st.selectbox('Select company:', df['name'].unique())
 
   if st.button('Predict Overall Aspect-Based Sentiment of Selected Company'):
-    st.write(f'check_company_sentiment(selected_company)')
+    check_company_sentiment(selected_company)
 
 with tab4:
   st.header('Model performance')
