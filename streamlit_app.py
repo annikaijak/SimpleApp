@@ -104,13 +104,13 @@ df['sentiment']=np.where(df['rating']>=4,1,0) # 1=positive, 0=negative
 
 def overall_and_category_sentiment(df):
     # Calculate the mean sentiment for each company
-    overall_sentiment_means = df.groupby('company')['sentiment'].mean()
+    overall_sentiment_means = df.groupby('name')['sentiment'].mean()
 
     # Calculate mean sentiment for each category for each company
     category_sentiments = {}
     for category, keywords in categories.items():
         df_category = df[df['review'].str.contains('|'.join(keywords))]
-        category_sentiments[category] = df_category.groupby('company')['sentiment'].mean()
+        category_sentiments[category] = df_category.groupby('name')['sentiment'].mean()
 
     # Determine overall sentiment and category sentiment
     overall = overall_sentiment_means.apply(lambda x: 'positive' if x >= 0.5 else 'negative')
