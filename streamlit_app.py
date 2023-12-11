@@ -55,9 +55,9 @@ def predict(placetext):
   text_ready = text_prepro(pd.Series(placetext))
   result = pipe_svm.predict(text_ready)
   if result == 0:
-    return "Negative sentiment"
+    return "negative sentiment"
   if result == 1:
-    return "Positive sentiment"
+    return "positive sentiment"
 
 categories = {
     "Price": [
@@ -109,14 +109,13 @@ with tab2:
   st.write('This tab includes a traditional Sentiment Analysis for Individual Reviews using TF-IDF and SVM.')
   
   review_txt = st.text_input('Enter your review here')
-      
-  submit_button = st.button('Submit')
-      
-  if submit_button:
+
+  if st.button('Predict Aspect-Based Sentiment'):
     category = categorize_review(review_txt)
     sentiment = predict(review_txt)
     st.write(f'This review regards: {", ".join(category)}')
-    st.write(f'It has: {sentiment}')
+    st.write(f'and has a: {sentiment}')
+
 
 
 with tab3:
