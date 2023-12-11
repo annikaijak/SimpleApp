@@ -72,6 +72,11 @@ categories = {
         "quality", "material", "build", "standard", "durability", "craftsmanship",
         "workmanship", "texture", "construction", "condition", "grade", "caliber",
         "integrity", "excellence", "reliability", "sturdiness", "performance"
+    ],
+    "Service": [
+        "support", "assistance", "help", "customer service", "care", "response",
+        "satisfaction", "experience", "professionalism", "expertise", "efficiency",
+        "friendliness", "availability", "flexibility", "reliability"
     ]
 }
 
@@ -114,9 +119,7 @@ with tab2:
     category = categorize_review(review_txt)
     sentiment = predict(review_txt)
     st.write(f'This review regards: {", ".join(category)}')
-    st.write(f'and has a: {sentiment}')
-
-
+    st.write(f'and has a {sentiment}')
 
 with tab3:
   st.header('Predict Overall Company Performance')
