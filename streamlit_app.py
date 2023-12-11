@@ -97,6 +97,11 @@ def categorize_review(text_review):
     if len(list_lab) == 0:
       return "Other"
 
+# Creating the overall company performance
+
+# Creating a sentiment column
+df['sentiment']=np.where(df['rating']>=4,1,0) # 1=positive, 0=negative
+
 # The App    
 st.title('TrustTracker 👌')
 st.markdown('Welcome to TrustTracker! The application where you easily can check the quality, price, service and delivery of your favorite companies.')
