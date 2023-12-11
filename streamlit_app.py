@@ -110,7 +110,7 @@ with tab2:
   
   review_txt = st.text_input('Enter your review here')
       
-  submit_button = st.form_submit_button('Submit')
+  submit_button = st.button('Submit')
       
   if submit_button:
     category = categorize_review(review_txt)
