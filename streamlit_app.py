@@ -121,16 +121,6 @@ def overall_and_category_sentiment(df):
 # Apply the function to your DataFrame
 overall_scores, category_scores = overall_and_category_sentiment(df)
 
-def check_company_sentiment(company_name):
-    if company_name not in overall_scores:
-        return f"{company_name} not found in the data."
-
-    sentiment_info = f"Overall sentiment for {company_name}: {overall_scores[company_name]}"
-    for category, scores in category_scores.items():
-        if company_name in scores:
-            sentiment_info += f", {category} sentiment: {scores[company_name]}"
-    return sentiment_info
-
 # The App    
 st.title('TrustTracker 👌')
 st.markdown('Welcome to TrustTracker! The application where you easily can check the quality, price, service and delivery of your favorite companies.')
@@ -162,7 +152,13 @@ with tab3:
   company = st.selectbox('Select company:', df['name'].unique())
 
   if st.button('Predict Companys Overall Aspect-Based Sentiment'):
-    check_company_sentiment(company)
+    if company not in overall_scores:
+        return f"{company} not found in the data."
+    sentiment_info = f"Overall sentiment for {company}: {overall_scores[company]}"
+    for category, scores in category_scores.items():
+        if company in scores:
+            sentiment_info += f", {category} sentiment: {scores[company]}"
+    return sentiment_info
 
 with tab4:
   st.header('Model performance')
