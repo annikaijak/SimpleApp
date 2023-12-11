@@ -135,6 +135,18 @@ with tab3:
 with tab4:
   st.header('Model performance')
 
+  # Confusion Matrix
+  st.subheader("Confusion Matrix")
+  st.image('images/svmconfusionmatrix.png')
+
+  # Yellowbrick FreqDistVisualizer
+  st.subheader("Yellowbrick FreqDistVisualizer")
+  st.image('images/svmyellowbrick.png')
+
+  # WordClouds
+  st.subheader("Word Clouds")
+  st.image('images/wordclouds.png')
+
 with tab5:
   st.header('Dataset')
   # Display dataset overview
