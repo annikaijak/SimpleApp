@@ -40,8 +40,7 @@ def text_prepro(texts: pd.Series) -> list:
   clean_container = []
   # Using spacy's nlp.pipe to preprocess the text
   for doc in nlp.pipe(texts):
-    # Extracting lemmatized tokens that are not punctuations, stopwords or
-    # non-alphabetic characters
+    # Extracting lemmatized tokens that are not punctuations, stopwords or non-alphabetic characters
     words = [words.lemma_.lower() for words in doc
             if words.is_alpha and not words.is_stop and not words.is_punct]
 
@@ -97,7 +96,7 @@ def categorize_review(text_review):
 st.title('TrustTracker 👌')
 st.markdown('Welcome to TrustTracker! The application where you easily can check the quality, price, service and delivery of your favorite companies.')
 
-tab1,tab2,tab3,tab4,tab5,tab6 = st.tabs(['About', 'Predict Individual Reviews', 'Predict Overall Company Performance', 'Model performance', 'Dataset', 'Visualisations'])
+tab1,tab2,tab3,tab4,tab5,tab6 = st.tabs(['About', 'Individual Reviews', 'Overall Company Performance', 'Model performance', 'Dataset', 'Visualisations'])
 
 
 with tab1:
@@ -122,17 +121,16 @@ with tab2:
       st.write(f'This review regards: {", ".join(category)}')
       st.write(f'It has: {sentiment}')
 
+
+with tab3:
+  st.header('Predict Overall Company Performance')
+  st.write('This tab includes Transformer-Based Sentiment Analysis using RoBERTa and SoftMax.')
+
   with st.form('another_form'):
     st.subheader('Sentiment Analysis for Companies')
     company = st.selectbox('Select company:', df['name'].unique())
     
     submit_button2 = st.form_submit_button('Submit')    
-
-
-with tab3:
-  st.header('Predict Overall Company Performance')
-  st.write('This tab includes Transformer-Based Sentiment Analysis using RoBERTa and SoftMax.')
-      
 
 
 with tab4:
