@@ -161,7 +161,7 @@ with tab3:
   
   company = st.selectbox('Select company:', df['name'].unique())
 
-  if st.button('Predict Company's Overall Aspect-Based Sentiment'):
+  if st.button('Predict Companys Overall Aspect-Based Sentiment'):
     check_company_sentiment(company)
 
 with tab4:
