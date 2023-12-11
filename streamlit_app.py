@@ -163,7 +163,7 @@ with tab3:
 
   if st.button('Predict Overall Aspect-Based Sentiment of Selected Company'):
     result = check_company_sentiment(selected_company)
-    st.write(result[0])
+    st.write(result)
 
 with tab4:
   st.header('Model performance')
