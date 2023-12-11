@@ -108,18 +108,15 @@ with tab2:
   st.header('Predict Individual Reviews')
   st.write('This tab includes a traditional Sentiment Analysis for Individual Reviews using TF-IDF and SVM.')
   
-  with st.form('my_form'):
-    st.subheader('Sentiment Analysis for Individual Reviews')
-
-    review_txt = st.text_input('Enter your review here')
+  review_txt = st.text_input('Enter your review here')
       
-    submit_button = st.form_submit_button('Submit')
+  submit_button = st.form_submit_button('Submit')
       
-    if submit_button:
-      category = categorize_review(review_txt)
-      sentiment = predict(review_txt)
-      st.write(f'This review regards: {", ".join(category)}')
-      st.write(f'It has: {sentiment}')
+  if submit_button:
+    category = categorize_review(review_txt)
+    sentiment = predict(review_txt)
+    st.write(f'This review regards: {", ".join(category)}')
+    st.write(f'It has: {sentiment}')
 
 
 with tab3:
