@@ -153,7 +153,7 @@ with tab3:
 
   if st.button('Predict Companys Overall Aspect-Based Sentiment'):
     if company not in overall_scores:
-    return f"{company} not found in the data."
+      return f"{company} not found in the data."
     sentiment_info = f"Overall sentiment for {company}: {overall_scores[company]}"
     for category, scores in category_scores.items():
       if company in scores:
