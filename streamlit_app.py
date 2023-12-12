@@ -93,16 +93,18 @@ def categorize_review(text_review):
           list_lab.append(category)
     return list_lab
 
-# Creating the overall company performance
+
+# Creating the overall company performance features
 
 # Creating a sentiment column
 df['sentiment']=np.where(df['rating']>=4,1,0) # 1=positive, 0=negative
 
+# Defining a function that returns the overall sentiment and the sentiment for each category for all the companies
 def overall_and_category_sentiment(df):
-    # Calculate the mean sentiment for each company
+    # Calculating the mean sentiment for each company
     overall_sentiment_means = df.groupby('name')['sentiment'].mean()
 
-    # Calculate mean sentiment for each category for each company
+    # Calculating the mean sentiment for each category for each company
     category_sentiments = {}
     for category, keywords in categories.items():
         df_category = df[df['review_text'].str.contains('|'.join(keywords))]
@@ -114,26 +116,27 @@ def overall_and_category_sentiment(df):
 
     return overall, category_sentiment_labels
 
-# Apply the function to your DataFrame
+# Applying the function to our DataFrame
 overall_scores, category_scores = overall_and_category_sentiment(df)
 
+# Defining the function for the predictor
 def check_company_sentiment(company_name):
     if company_name not in overall_scores:
         return f"{company_name} not found in the data."
-
     sentiment_info = [f"Overall sentiment for {company_name}: {overall_scores[company_name]}"]
-  
     for category, scores in category_scores.items():
         if company_name in scores:
             sentiment_info.append(f"{category} sentiment: {scores[company_name]}")
     return sentiment_info
 
-# The App    
+# Creating the app
+
+# Setting the title and adding text
 st.title('TrustTracker 👌')
 st.markdown('Welcome to TrustTracker! The application where you easily can check the quality, price, service and delivery of your favorite companies.')
 
+# Creating tabs for the different features of the application
 tab1,tab2,tab3,tab4,tab5,tab6 = st.tabs(['About', 'Individual Reviews', 'Overall Company Performance', 'Model performance', 'Dataset', 'Visualisations'])
-
 
 with tab1:
   st.header("About the application")
@@ -141,57 +144,62 @@ with tab1:
   st.markdown('*   **About the application:** The first tab shows the current page, where you can get some information about the application. You can always return to this tab if necessary.')
   st.markdown('*   **Individual Reviews:** In the second tab, you can input a review and get an Aspect-Based Sentiment Analysis of the review that show if the review regards price, quality, service or delivery and if the review is positive or negative.')
   st.markdown('*   **Overall Company Performance:** The third tab contains an overall Aspect-Based Sentiment Analysis for a company. Here you can choose a company from the list and get an output telling you if consumers overall have a positive or negative sentiment regarding the company and a separate sentiment for each of the chosen categories.')
-  st.markdown('*   **Model Performance:** The fourth tab explains how the underlying Machine Learning Model performs and how the predictor works.')
+  st.markdown('*   **Model Performance:** The fourth tab explains how the underlying Machine Learning Model performs and how the classifier works.')
   st.markdown('*   **Dataset:** In the fifth tab, you can see where the origin of the dataset that has been used to build the application.')
   st.markdown('*   **Visualisations:** Lastly, for those who are curious about the distribution of the dataset, the application includes an exploratory data analysis of the different variables.')
         
 with tab2:
-
-  st.header('Predict Individual Reviews')
-  
+  st.header('Analyze Individual Reviews')
+  st.markdown('This tab includes an Aspect-Based Sentiment Analyzis for individual reviews. The classifier is built using TF-IDF and SVM.')
   review_txt = st.text_input('Enter your review here')
-
-  if st.button('Predict Aspect-Based Sentiment'):
+  if st.button('Analyse Aspect-Based Sentiment'):
     category = categorize_review(review_txt)
     sentiment = predict(review_txt)
     st.write(f'This review regards: {", ".join(category)}')
     st.write(f'The sentiment of the review is: {sentiment}')
 
 with tab3:
-  st.header('Predict Overall Company Performance')
-  st.write('')
-  
+  st.header('Analyze Overall Company Performance')
+  st.markdown('This tab includes an overall Aspect-Based Sentiment Analyzis for all the reviews of the companies in the list. This classifier is also built using TF-IDF and SVM.')
+
+  # Adding a selectbox
   selected_company = st.selectbox('Select company:', df['name'].unique())
 
-  if st.button('Predict Overall Aspect-Based Sentiment of Selected Company'):
+  # Adding an analyzing button
+  if st.button('Analyze Overall Aspect-Based Sentiment of Selected Company'):
     result = check_company_sentiment(selected_company)
     st.write(result[0])
 
-    # Define a list of indices to display (1, 2, 3, 4 in this case)
+    # Defining a list of indices to display (1, 2, 3, 4 in this case)
     indices_to_display = [1, 2, 3, 4]
 
-    # Loop through the indices and display only if they are in the list
+    # Looping through the indices and displaying only if they are in the list
     for index in indices_to_display:
         if index < len(result):
             st.write(result[index])
 
 with tab4:
   st.header('Model performance')
+  st.markdown('This tab is for those, who are curious about how the underlying classification model works. Scroll through the page to get more information.')
 
   # Confusion Matrix
   st.subheader("Confusion Matrix")
+  st.markdown('In this confusion matrix, we can see how the SVM model has 159 True Positives and 171 True Negatives. It only has 22 False Positive predictions and 18 False Negative predictions, which shows that the classifier is performing quite well.')
   st.image('images/svmconfusionmatrix.png')
 
   # Yellowbrick FreqDistVisualizer
   st.subheader("Yellowbrick FreqDistVisualizer")
+  st.markdown('Here we can see that service is an often occuring word over the whole corpus. We can also see that the reviews in general are positive, as the words great and good are in the top of the distribution.')
   st.image('images/svmyellowbrick.png')
 
   # WordClouds
   st.subheader("Word Clouds")
+  st.markdown('')
   st.image('images/wordclouds.png')
 
 with tab5:
   st.header('Dataset')
+  st.markdown('The dataset has been loaded from the following link: https://www.kaggle.com/datasets/crawlfeeds/trustpilot-reviews-dataset.')
   # Display dataset overview
   st.subheader("Dataset Overview")
   st.dataframe(df.head())
