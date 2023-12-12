@@ -1,17 +1,12 @@
+# Loading packages
 import pickle
-
-# For building application
 import streamlit as st
-
-# Basic data manipulation:
 import numpy as np
 import pandas as pd
-
-# NLP
 import spacy
 nlp = spacy.load('en_core_web_sm')
 
-# Page configuration
+# Configuring the web page and setting the page title and icon
 st.set_page_config(
   page_title='TrustTracker',
   page_icon='👌',
@@ -28,13 +23,13 @@ def load_data():
     
     return df
 
-
-# Load the data using the defined function
+# Loading the data using the defined function
 df = load_data()
 
+# Loading the model
 pipe_svm = pickle.load(open('data/model.pkl', 'rb'))
 
-# Defining functions
+# Defining text preprocessing function for individual review predictor
 def text_prepro(texts: pd.Series) -> list:
   # Creating a container for the cleaned texts
   clean_container = []
@@ -49,16 +44,17 @@ def text_prepro(texts: pd.Series) -> list:
 
   return clean_container
 
-# Defining the ML function
+# Defining the ML function for the individual review predictor
 def predict(placetext):
   text_ready = []
   text_ready = text_prepro(pd.Series(placetext))
   result = pipe_svm.predict(text_ready)
   if result == 0:
-    return "negative sentiment"
+    return "Negative"
   if result == 1:
-    return "positive sentiment"
+    return "Positive"
 
+# Defining categories to add aspect-based sentiment analysis
 categories = {
     "Price": [
         "price", "cost", "expensive", "cheap", "value", "pay", "affordable",
@@ -80,21 +76,23 @@ categories = {
     ]
 }
 
+# Lemmatizing the keywords
 def lemmatize_keywords(categories):
     lemmatized_categories = {}
     for category, keywords in categories.items():
         lemmatized_keywords = [nlp(keyword)[0].lemma_ for keyword in keywords]
         lemmatized_categories[category] = lemmatized_keywords
     return lemmatized_categories
-    
+
+# Defining function to categories the reviews according to the categories
 list_lab = []
 def categorize_review(text_review):
     lemmatized_review = " ".join([token.lemma_ for token in nlp(text_review.lower())])
     for category, keywords in lemmatize_keywords(categories).items():
         if any(keyword in lemmatized_review for keyword in keywords):
           list_lab.append(category)
-    return list_lab
-    if len(list_lab) == 0:
+      return list_lab
+    else:
       return "Other"
 
 # Creating the overall company performance
@@ -152,7 +150,6 @@ with tab1:
 with tab2:
 
   st.header('Predict Individual Reviews')
-  st.write('This tab includes a traditional Sentiment Analysis for Individual Reviews using TF-IDF and SVM.')
   
   review_txt = st.text_input('Enter your review here')
 
@@ -160,7 +157,7 @@ with tab2:
     category = categorize_review(review_txt)
     sentiment = predict(review_txt)
     st.write(f'This review regards: {", ".join(category)}')
-    st.write(f'and has a {sentiment}')
+    st.write(f'The sentiment of the review is: {sentiment}')
 
 with tab3:
   st.header('Predict Overall Company Performance')
