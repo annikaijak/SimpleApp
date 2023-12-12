@@ -11,6 +11,8 @@ import pandas as pd
 import spacy
 nlp = spacy.load('en_core_web_sm')
 
+from lime.lime_text import LimeTextExplainer
+
 # Page configuration
 st.set_page_config(
   page_title='TrustTracker',
