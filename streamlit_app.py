@@ -142,7 +142,7 @@ tab1,tab2,tab3,tab4,tab5,tab6 = st.tabs(['About', 'Individual Reviews', 'Overall
 with tab1:
   st.header("About the application")
   st.markdown('This application is divided into 6 tabs.')
-  st.markdown('The first tab shows the current page, where you can get some information about the application. You can always return to this tab if necessary.')
+  st.markdown('*   The first tab shows the current page, where you can get some information about the application. You can always return to this tab if necessary.')
   st.markdown('In the second tab, you can input a review and get an Aspect-Based Sentiment Analysis of the review that show if the review regards price, quality, service or delivery and if the review is positive or negative.')
   st.markdown('The third tab contains an overall Aspect-Based Sentiment Analysis for a company. Here you can choose a company from the list and get an output telling you if consumers overall have a positive or negative sentiment regarding the company and a separate sentiment for each of the chosen categories.')
   st.markdown('The fourth tab explains how the underlying Machine Learning Model performs and how the predictor works.')
