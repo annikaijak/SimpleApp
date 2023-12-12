@@ -113,8 +113,8 @@ def overall_and_category_sentiment(df):
         category_sentiments[category] = df_category.groupby('name')['sentiment'].mean()
 
     # Determine overall sentiment and category sentiment
-    overall = overall_sentiment_means.apply(lambda x: 'positive' if x >= 0.5 else 'negative')
-    category_sentiment_labels = {category: sentiments.apply(lambda x: 'positive' if x >= 0.5 else 'negative') for category, sentiments in category_sentiments.items()}
+    overall = overall_sentiment_means.apply(lambda x: 'Positive' if x >= 0.5 else 'Negative')
+    category_sentiment_labels = {category: sentiments.apply(lambda x: 'Positive' if x >= 0.5 else 'Negative') for category, sentiments in category_sentiments.items()}
 
     return overall, category_sentiment_labels
 
@@ -165,6 +165,10 @@ with tab3:
   if st.button('Predict Overall Aspect-Based Sentiment of Selected Company'):
     result = check_company_sentiment(selected_company)
     st.write(result[0])
+    st.write(result[1])
+    st.write(result[2])
+    st.write(result[3])
+    st.write(result[4])
 
 with tab4:
   st.header('Model performance')
