@@ -142,9 +142,9 @@ tab1,tab2,tab3,tab4,tab5,tab6 = st.tabs(['About', 'Individual Reviews', 'Overall
 with tab1:
   st.header("About the application")
 
-  st.markdown("This application is divided into 6 tabs. 
+  st.markdown('''This application is divided into 6 tabs. 
               In the second tab, you can input a review and get an aspect-based sentiment of the review, which show if the review regards price, quality, service or delivery and if the review is positive or negative.
-              The third tab...")
+              The third tab...''')
 
         
 with tab2:
