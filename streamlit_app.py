@@ -165,10 +165,14 @@ with tab3:
   if st.button('Predict Overall Aspect-Based Sentiment of Selected Company'):
     result = check_company_sentiment(selected_company)
     st.write(result[0])
-    st.write(result[1])
-    st.write(result[2])
-    st.write(result[3])
-    st.write(result[4])
+
+    # Define a list of indices to display (1, 2, 3, 4 in this case)
+    indices_to_display = [1, 2, 3, 4]
+
+    # Loop through the indices and display only if they are in the list
+    for index in indices_to_display:
+        if index < len(result):
+            st.write(result[index])
 
 with tab4:
   st.header('Model performance')
