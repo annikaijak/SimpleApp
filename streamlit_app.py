@@ -92,7 +92,7 @@ def categorize_review(text_review):
         if any(keyword in lemmatized_review for keyword in keywords):
           list_lab.append(category)
           return list_lab
-    return "Other"
+    return ("Other")
 
 # Creating the overall company performance
 
