@@ -74,7 +74,7 @@ categories = {
         "integrity", "excellence", "reliability", "sturdiness", "performance"
     ],
     "Service": [
-        "support", "assistance", "help", "customer service", "care", "response",
+        "service", "support", "assistance", "help", "customer service", "care", "response",
         "satisfaction", "experience", "professionalism", "expertise", "efficiency",
         "friendliness", "availability", "flexibility", "reliability"
     ]
