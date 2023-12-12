@@ -141,13 +141,13 @@ tab1,tab2,tab3,tab4,tab5,tab6 = st.tabs(['About', 'Individual Reviews', 'Overall
 
 with tab1:
   st.header("About the application")
-  st.markdown('This application is divided into 6 tabs.')
-  st.markdown('*   The first tab shows the current page, where you can get some information about the application. You can always return to this tab if necessary.')
-  st.markdown('In the second tab, you can input a review and get an Aspect-Based Sentiment Analysis of the review that show if the review regards price, quality, service or delivery and if the review is positive or negative.')
-  st.markdown('The third tab contains an overall Aspect-Based Sentiment Analysis for a company. Here you can choose a company from the list and get an output telling you if consumers overall have a positive or negative sentiment regarding the company and a separate sentiment for each of the chosen categories.')
-  st.markdown('The fourth tab explains how the underlying Machine Learning Model performs and how the predictor works.')
-  st.markdown('In the fifth tab, you can see where the origin of the dataset, which has been used to build the application.')
-  st.markdown('Lastly, you can see some...')
+  st.markdown('This application is divided into 6 tabs:')
+  st.markdown('*   **About the application:** The first tab shows the current page, where you can get some information about the application. You can always return to this tab if necessary.')
+  st.markdown('*   **Individual Reviews:** In the second tab, you can input a review and get an Aspect-Based Sentiment Analysis of the review that show if the review regards price, quality, service or delivery and if the review is positive or negative.')
+  st.markdown('*   **Overall Company Performance:** The third tab contains an overall Aspect-Based Sentiment Analysis for a company. Here you can choose a company from the list and get an output telling you if consumers overall have a positive or negative sentiment regarding the company and a separate sentiment for each of the chosen categories.')
+  st.markdown('*   **Model Performance:** The fourth tab explains how the underlying Machine Learning Model performs and how the predictor works.')
+  st.markdown('*   **Dataset:** In the fifth tab, you can see where the origin of the dataset that has been used to build the application.')
+  st.markdown('*   **Visualisations:** Lastly, for those who are curious about the distribution of the dataset, the application includes an exploratory data analysis of the different variables.')
         
 with tab2:
 
