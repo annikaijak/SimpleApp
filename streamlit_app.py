@@ -27,7 +27,7 @@ def load_data():
 df = load_data()
 
 # Loading the model
-ros_pipe_rf = pickle.load(open('data/model.pkl', 'rb'))
+ros_pipe_rf = pickle.load(open('data/model (4).pkl', 'rb'))
 
 # Defining text preprocessing function for individual review predictor
 def text_prepro(texts: pd.Series) -> list:
