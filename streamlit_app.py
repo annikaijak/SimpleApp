@@ -48,11 +48,11 @@ def text_prepro(texts: pd.Series) -> list:
 def predict(placetext):
   text_ready = []
   text_ready = text_prepro(pd.Series(placetext))
-  result = pipe_svm.predict(text_ready)
+  result = ros_pipe_rf.predict(text_ready)
   if result == 0:
-    return "Negative"
+    return "Negative sentiment"
   if result == 1:
-    return "Positive"
+    return "Positive sentiment"
 
 # Defining categories to add aspect-based sentiment analysis
 categories = {
@@ -145,12 +145,12 @@ with tab1:
   st.markdown('*   **Individual Reviews:** In the second tab, you can input a review and get an Aspect-Based Sentiment Analysis of the review that show if the review regards price, quality, service or delivery and if the review is positive or negative.')
   st.markdown('*   **Overall Company Performance:** The third tab contains an overall Aspect-Based Sentiment Analysis for a company. Here you can choose a company from the list and get an output telling you if consumers overall have a positive or negative sentiment regarding the company and a separate sentiment for each of the chosen categories.')
   st.markdown('*   **Model Performance:** The fourth tab explains how the underlying Machine Learning Model performs and how the classifier works.')
-  st.markdown('*   **Dataset:** In the fifth tab, you can see where the origin of the dataset that has been used to build the application.')
+  st.markdown('*   **Dataset:** In the fifth tab, you can see the origin of the dataset that has been used to build the application.')
   st.markdown('*   **Visualisations:** Lastly, for those who are curious about the distribution of the dataset, the application includes an exploratory data analysis of the different variables.')
         
 with tab2:
-  st.header('Analyze Individual Reviews')
-  st.markdown('This tab includes an Aspect-Based Sentiment Analyzis for individual reviews. The classifier is built using TF-IDF and SVM.')
+  st.header('Analyse Individual Reviews')
+  st.markdown('This tab includes an Aspect-Based Sentiment Analyzis for individual reviews. The classifier is built using TF-IDF and Random Forests.')
   review_txt = st.text_input('Enter your review here')
   if st.button('Analyse Aspect-Based Sentiment'):
     category = categorize_review(review_txt)
@@ -159,14 +159,14 @@ with tab2:
     st.write(f'The sentiment of the review is: {sentiment}')
 
 with tab3:
-  st.header('Analyze Overall Company Performance')
-  st.markdown('This tab includes an overall Aspect-Based Sentiment Analyzis for all the reviews of the companies in the list. This classifier is also built using TF-IDF and SVM.')
+  st.header('Analyse Overall Company Performance')
+  st.markdown('This tab includes an overall Aspect-Based Sentiment Analysis for all the reviews of the companies in the list. This classifier is also built using TF-IDF and Random Forests.')
 
   # Adding a selectbox
   selected_company = st.selectbox('Select company:', df['name'].unique())
 
   # Adding an analyzing button
-  if st.button('Analyze Overall Aspect-Based Sentiment of Selected Company'):
+  if st.button('Analyse Overall Aspect-Based Sentiment of Selected Company'):
     result = check_company_sentiment(selected_company)
     st.write(result[0])
 
@@ -184,13 +184,18 @@ with tab4:
 
   # Confusion Matrix
   st.subheader("Confusion Matrix")
-  st.markdown('In this confusion matrix, we can see how the SVM model has 159 True Positives and 171 True Negatives. It only has 22 False Positive predictions and 18 False Negative predictions, which shows that the classifier is performing quite well.')
-  st.image('images/svmconfusionmatrix.png')
+  st.markdown('In this confusion matrix, we can see how the Random Forest model has 789 True Positives and 814 True Negatives. It only has 7 False Positive predictions and 25 False Negative predictions, which shows that the classifier is performing quite well.')
+  st.image('images/rfconfusionmatrix.png')
 
   # Yellowbrick FreqDistVisualizer
   st.subheader("Yellowbrick FreqDistVisualizer")
   st.markdown('Here we can see that service is an often occuring word over the whole corpus. We can also see that the reviews in general are positive, as the words great and good are in the top of the distribution.')
   st.image('images/svmyellowbrick.png')
+
+  # LIME 
+  st.subheader("LIME Text Explainer")
+  st.markdown('Here we can see an example of the LIME Text Explainer, which shows that the words "cup" and "chicken" are dragging the review towards being negative.')
+  st.image('images/lime.png')
 
   # WordClouds
   st.subheader("Word Clouds")
