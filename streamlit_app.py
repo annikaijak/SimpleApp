@@ -150,7 +150,7 @@ with tab1:
         
 with tab2:
   st.header('Analyse Individual Reviews')
-  st.markdown('This tab includes an Aspect-Based Sentiment Analyzis for individual reviews. The classifier is built using TF-IDF and Random Forests.')
+  st.markdown('This tab includes an Aspect-Based Sentiment Analysis for individual reviews. The classifier is built using TF-IDF and Random Forests.')
   review_txt = st.text_input('Enter your review here')
   if st.button('Analyse Aspect-Based Sentiment'):
     category = categorize_review(review_txt)
